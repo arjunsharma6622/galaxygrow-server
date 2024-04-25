@@ -29,7 +29,7 @@
     "msg91": "^2.1.4",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.8",
-    "nodemon": "^3.0.1",
+    "nodemon": "^3.1.0",
     "otp-generator": "^4.0.1",
     "sendotp": "^1.2.9",
     "winston": "^3.13.0"

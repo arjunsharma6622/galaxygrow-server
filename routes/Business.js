@@ -257,51 +257,51 @@ router.patch("/update-modeofpayment-icon/:id", async (req, res) => {
     const paymentModes = [
       {
         name: "Cash",
-        icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/pwgkaicbn4oiqlmbdu4y.png",
+        icon: "https://res.cloudinary.com/dexnb3wk2/image/upload/v1714016034/galaxyGrow/paymentModes/rnuhmppgexjr1s6fvdpt.png",
       },
       {
         name: "Card",
-        icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817173/aresuno/paymentModes/dy4nsy9gl6m6bnb2nfmd.png",
+        icon: "https://res.cloudinary.com/dexnb3wk2/image/upload/v1714016034/galaxyGrow/paymentModes/hlksw9vntanue3lux1zp.png",
       },
       {
         name: "Visa",
-        icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817170/aresuno/paymentModes/xoinunrckkg3rww8k77b.png",
+        icon: "https://res.cloudinary.com/dexnb3wk2/image/upload/v1714016039/galaxyGrow/paymentModes/f3s1heywwkkeqwgtyuvo.png",
       },
       {
         name: "Rupay",
-        icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/obi22zyxsbq5xlzlp0ws.png",
+        icon: "https://res.cloudinary.com/dexnb3wk2/image/upload/v1714016033/galaxyGrow/paymentModes/kc0qpgli4z3qeusbafhb.png",
       },
       {
         name: "Mastercard",
-        icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/hhqomnbw4qrwdwhob5mp.png",
+        icon: "https://res.cloudinary.com/dexnb3wk2/image/upload/v1714016036/galaxyGrow/paymentModes/oi7cp66pqtmct6xv22pv.png",
       },
       {
         name: "UPI",
-        icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/xkiu9aow2dqy0rr7dtrn.png",
+        icon: "https://res.cloudinary.com/dexnb3wk2/image/upload/v1714016038/galaxyGrow/paymentModes/jiaujvlvoykmoe2eye78.png",
       },
       {
         name: "Google Pay",
-        icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817170/aresuno/paymentModes/fvpdyuhabbvdkqdyu0ob.png",
+        icon: "https://res.cloudinary.com/dexnb3wk2/image/upload/v1714016040/galaxyGrow/paymentModes/mxvq8qgwlnnyfaav6qhx.png",
       },
       {
         name: "PhonePe",
-        icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817170/aresuno/paymentModes/cbazb5dpnijmc488pvbx.png",
+        icon: "https://res.cloudinary.com/dexnb3wk2/image/upload/v1714016038/galaxyGrow/paymentModes/tciomprsvd0vqnoty50q.png",
       },
       {
         name: "Patym",
-        icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/rs14sxkqwwnbxshhrbbw.png",
+        icon: "https://res.cloudinary.com/dexnb3wk2/image/upload/v1714016033/galaxyGrow/paymentModes/xnzwc4r4yymyjpnkdzmw.png",
       },
       {
         name: "Apple Pay",
-        icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/xkiu9aow2dqy0rr7dtrn.png",
+        icon: "https://res.cloudinary.com/dexnb3wk2/image/upload/v1714016037/galaxyGrow/paymentModes/fittcxmpv1yk0v1zbeql.png",
       },
       {
         name: "Razorpay",
-        icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/vlkap6xgiua5svwbjkpm.png",
+        icon: "https://res.cloudinary.com/dexnb3wk2/image/upload/v1714016035/galaxyGrow/paymentModes/s5jgyichyo3rswanvss1.png",
       },
       {
         name: "American Express",
-        icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/xr6kdw1itposojv1bsw0.png",
+        icon: "https://res.cloudinary.com/dexnb3wk2/image/upload/v1714016036/galaxyGrow/paymentModes/ogyavdlt1bo2k4ll1ugg.png",
       },
     ];
 

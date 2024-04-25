@@ -417,5 +417,7 @@ app.use("/api/enquiry", require("./routes/Enquiry"));
 app.use("/api/call-lead", require("./routes/CallLead"));
 app.use("/api/blog", require("./routes/Blog"));
 app.use("/api/city", require("./routes/City"));
+app.use("/api/package", require("./routes/Package"));
+
 
 module.exports = app;

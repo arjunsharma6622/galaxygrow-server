@@ -47,7 +47,7 @@ router.put("/:id", verification, validateRole(["admin"]), async (req, res) => {
 
 // POST route to create one or more categories
 router.post(
-  "/create",
+  "/add",
   verification,
   validateRole(["admin"]),
   async (req, res) => {
@@ -78,6 +78,17 @@ router.delete(
     }
   },
 );
+
+// delete all
+router.delete("/", async (req, res) => {
+  try {
+    const deletedCategories = await Category.deleteMany();
+    res.status(200).send(deletedCategories);
+  } catch (err) {
+    logger.error(err);
+    res.status(500).send(err);
+  }
+})
 
 router.get("/update-business-type", async (req, res) => {
   try {

@@ -40,6 +40,7 @@ router.post("/add", verification, validateRole(["admin"]), async (req, res) => {
   }
 });
 
+
 //update city data
 router.put("/:id", verification, validateRole(["admin"]), async (req, res) => {
   try {
