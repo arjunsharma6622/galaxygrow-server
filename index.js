@@ -33,12 +33,9 @@ cloudinary.config({
 });
 
 const allowedOrigins = [
-  "https://www.aresuno.com",
-  "www.aresuno.com",
-  "aresuno.com",
-  "https://aresuno.com",
   "http://localhost:5173",
-  "http://localhost:3000",
+  "https://galaxygrow.vercel.app/",
+  "galaxygrow.vercel.app",
 ]; // Add your actual allowed origins
 
 app.use(
