@@ -34,7 +34,7 @@ cloudinary.config({
 
 const allowedOrigins = [
   "https://galaxygrow.vercel.app",
-  "galaxygrow.vercel.app",
+  "https://www.galaxygrow.in",
   "http://localhost:5173",
 ]; // Add your actual allowed origins
 
