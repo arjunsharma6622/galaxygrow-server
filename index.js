@@ -465,12 +465,12 @@ app.get("/api/generateCategoryDescription/:category", verification, validateRole
 
 app.get("/api/generateCategoryKeywords/:category", verification, validateRole(["admin"]) , async (req, res) => {
   try{
-    let prompt = `Please generate a list of 10 relevant, comma-separated keywords for the ${req.params.category} category related to a business listing website, in order to improve the SEO for that specific category page.`
+    let prompt = `Please generate a list of 10 relevant, comma-separated only in string format, I dont want it in the list format,  keywords for the ${req.params.category} category related to a business listing website, in order to improve the SEO for that specific category page.`
     const completion = await openai.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
       model: "gpt-3.5-turbo",
     });
-    // console.log(completion?.choices[0].message.content)
+    console.log(completion?.choices[0].message.content)
     res.json({ keywords : completion?.choices[0].message.content })
   }
   catch(error){

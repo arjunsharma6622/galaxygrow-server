@@ -13,6 +13,13 @@ router.post("/register", async (req, res) => {
     const { name, email, password, phone, gender, place, image, role } =
       req.body;
 
+    // if the role is admin then throw an error saying cannot do this operation, DENIED
+    if (role === "admin") {
+      return res
+        .status(400)
+        .send({ message: "Cannot do this operation, DENIED" });
+    }
+
     // const vendorExists = await Vendor.findOne({ email: email });
     const userExistsWithEmail = await User.findOne({ email: email });
     const userExistsWithPhone = await User.findOne({ phone: phone });
