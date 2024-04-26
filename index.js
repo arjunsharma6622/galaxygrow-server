@@ -10,9 +10,11 @@ const app = express();
 const bcrypt = require("bcrypt");
 const cloudinary = require("cloudinary").v2;
 const multer = require("multer");
-const { verification } = require("./middlewares/authorization");
+const { verification, validateRole } = require("./middlewares/authorization");
 const axios = require("axios");
 const logger = require("./utils/logger");
+const OpenAI  = require("openai")
+
 
 logger.info("Starting app.");
 dotenv.config();
@@ -115,6 +117,8 @@ app.post("/api/login", async (req, res, next) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+
 
 // getUnifiedUserData
 app.get("/api/userData", verification, async (req, res) => {
@@ -400,6 +404,82 @@ app.patch("/api/reset-password", async (req, res) => {
       .json({ success: false, message: "Failed to change password." });
   }
 });
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
+
+// OPENAI
+// app.get("/api/generateCategoryKeywords/:category", async (req, res) => {
+//   try{
+//     // const res = await openai.chat.completions.create({
+//     //   messages: [{ role: "user", content: "You are a helpful assistant." }],
+//     //   model: "gpt-3.5-turbo",
+//     //   max_tokens: 100
+//     // });
+//     res.json({ keywords : `${req.params.category} keywords` })
+//   }
+//   catch(error){
+//     logger.error("Failed to get OPENAI res", error);
+//     res
+//       .status(500)
+//       .json({ success: false, message: "Failed to get openai res" });
+//   }
+// })
+// app.get("/api/generateCategoryDescription/:category", async (req, res) => {
+//   try{
+//     // const res = await openai.chat.completions.create({
+//     //   messages: [{ role: "user", content: "You are a helpful assistant." }],
+//     //   model: "gpt-3.5-turbo",
+//     //   max_tokens: 100
+//     // });
+//     res.json({ description : `${req.params.category} description` })
+//   }
+//   catch(error){
+//     logger.error("Failed to get OPENAI res", error);
+//     res
+//       .status(500)
+//       .json({ success: false, message: "Failed to get openai res" });
+//   }
+// })
+
+
+app.get("/api/generateCategoryDescription/:category", verification, validateRole(["admin"]) ,async (req, res) => {
+  try{
+    let prompt = `Please create a concise and engaging SEO-friendly description (meta description) between 50 and 60 words for the ${req.params.category} category related to a business listing website, accurately summarizing the category and encouraging users to click on the page.`
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: "user", content: prompt }],
+      model: "gpt-3.5-turbo",
+    });
+    // console.log(completion?.choices[0].message.content)
+    res.json({ description : completion?.choices[0].message.content })
+  }
+  catch(error){
+    logger.error("Failed to get OPENAI res", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to get openai res" });
+  }
+})
+
+app.get("/api/generateCategoryKeywords/:category", verification, validateRole(["admin"]) , async (req, res) => {
+  try{
+    let prompt = `Please generate a list of 10 relevant, comma-separated keywords for the ${req.params.category} category related to a business listing website, in order to improve the SEO for that specific category page.`
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: "user", content: prompt }],
+      model: "gpt-3.5-turbo",
+    });
+    // console.log(completion?.choices[0].message.content)
+    res.json({ keywords : completion?.choices[0].message.content })
+  }
+  catch(error){
+    logger.error("Failed to get OPENAI res", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to get openai res" });
+  }
+})
 
 // Import routes
 app.use("/api/business", require("./routes/Business"));
