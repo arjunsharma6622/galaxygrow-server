@@ -19,6 +19,8 @@ const OpenAI  = require("openai")
 logger.info("Starting app.");
 dotenv.config();
 
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
 const db = process.env.DB_URL;
 const port = process.env.PORT;
 const googleMapKey = process.env.GOOGLE_MAP_KEY;
@@ -495,6 +497,34 @@ app.use("/api/call-lead", require("./routes/CallLead"));
 app.use("/api/blog", require("./routes/Blog"));
 app.use("/api/city", require("./routes/City"));
 app.use("/api/package", require("./routes/Package"));
+
+
+const storeItems = new Map([
+  [1, { priceInCents: 10000, name: "Hoodie" }],
+  [2, { priceInCents: 20000, name: "Sweatshirt" }],
+  [3, { priceInCents: 30000, name: "Jacket" }],
+]);
+
+
+
+app.get("/stripe", async(req, res) => {
+  try{
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types : ['card'],
+      mode : 'payment',
+      line_items : storeItems,
+      success_url : 'http://localhost:5173/success',
+      cancel_url : 'http://localhost:5173/cancel'
+    })
+    res.json({url : session.url})
+  }
+  catch(error){
+    logger.error("Failed to get OPENAI res", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to get openai res" });
+  }
+})
 
 
 module.exports = app;

@@ -33,6 +33,7 @@
     "openai": "^4.38.5",
     "otp-generator": "^4.0.1",
     "sendotp": "^1.2.9",
+    "stripe": "^15.4.0",
     "winston": "^3.13.0"
   },
   "devDependencies": {
