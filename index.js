@@ -13,7 +13,8 @@ const multer = require("multer");
 const { verification, validateRole } = require("./middlewares/authorization");
 const axios = require("axios");
 const logger = require("./utils/logger");
-const OpenAI  = require("openai")
+const OpenAI  = require("openai");
+const Category = require("./models/Category");
 
 
 logger.info("Starting app.");
@@ -447,13 +448,18 @@ const openai = new OpenAI({
 // })
 
 
-app.get("/api/generateCategoryDescription/:category", verification, validateRole(["admin"]) ,async (req, res) => {
+app.get("/api/generateCategoryDescription", verification, validateRole(["admin"]) ,async (req, res) => {
+  const categoryName = req.query.categoryName;
+  const categoryId = req.query.categoryId;
   try{
-    let prompt = `Please create a concise and engaging SEO-friendly description (meta description) between 50 and 60 words for the ${req.params.category} category related to a business listing website, accurately summarizing the category and encouraging users to click on the page.`
+    let prompt = `Please create a concise and engaging SEO-friendly description (meta description) between 50 and 60 words for the ${categoryName} category related to a business listing website, accurately summarizing the category and encouraging users to click on the page.`
     const completion = await openai.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
       model: "gpt-3.5-turbo",
     });
+    const categoryToUpdate = await Category.findById(categoryId);
+    categoryToUpdate.descriptionGptGenerated = true;
+    await categoryToUpdate.save();
     // console.log(completion?.choices[0].message.content)
     res.json({ description : completion?.choices[0].message.content })
   }
@@ -465,13 +471,20 @@ app.get("/api/generateCategoryDescription/:category", verification, validateRole
   }
 })
 
-app.get("/api/generateCategoryKeywords/:category", verification, validateRole(["admin"]) , async (req, res) => {
+app.get("/api/generateCategoryKeywords", verification, validateRole(["admin"]) , async (req, res) => {
+  const categoryName = req.query.categoryName;
+  const categoryId = req.query.categoryId;
   try{
-    let prompt = `Please generate a list of 10 relevant, comma-separated only in string format, I dont want it in the list format,  keywords for the ${req.params.category} category related to a business listing website, in order to improve the SEO for that specific category page.`
+    let prompt = `Please generate a list of 10 relevant, comma-separated only in string format, I dont want it in the list format,  keywords for the ${categoryName} category related to a business listing website, in order to improve the SEO for that specific category page.`
     const completion = await openai.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
       model: "gpt-3.5-turbo",
     });
+    
+    const categoryToUpdate = await Category.findById(categoryId);
+    categoryToUpdate.keywordsGptGenerated = true;
+    await categoryToUpdate.save();
+
     console.log(completion?.choices[0].message.content)
     res.json({ keywords : completion?.choices[0].message.content })
   }

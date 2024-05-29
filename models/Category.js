@@ -45,6 +45,14 @@ const CategorySchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    keywordsGptGenerated: {
+      type: Boolean,
+      default: false,
+    },
+    descriptionGptGenerated: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
