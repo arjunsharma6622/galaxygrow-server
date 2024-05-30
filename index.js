@@ -272,13 +272,19 @@ app.get("/api/autocomplete", async (req, res) => {
 app.get("/api/getLatLongFromAddress", async (req, res) => {
   try {
     const address = req.query.address;
+    console.log("called")
+    console.log(googleMapKey)
     const response = await axios.get(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${googleMapKey}`,
     );
+
+    console.log(response.data)
+
     const lat = response.data.results[0].geometry.location.lat;
     const lng = response.data.results[0].geometry.location.lng;
     res.json({ lat: lat, lng: lng });
   } catch (error) {
+    console.log(error)
     res.status(500).send(error);
   }
 });
